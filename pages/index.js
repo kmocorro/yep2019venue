@@ -1,37 +1,57 @@
-import React from 'react';
-import Container from '@material-ui/core/Container';
-import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
-import MuiLink from '@material-ui/core/Link';
-import ProTip from '../src/ProTip';
-import Link from '../src/Link';
+import React, {Fragment, useState} from 'react'
+import Head from 'next/head'
+import KameraLayout from '../components/KameraLayout'
 
-function Copyright() {
+import Router from 'next/router'
+import fetch from 'isomorphic-unfetch'
+import nextCookie from 'next-cookies'
+import { withAuthSync, logout } from '../utils/auth'
+import getHost from '../utils/get-host'
+
+function Index(props){
+
   return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <MuiLink color="inherit" href="https://material-ui.com/">
-        Your Website
-      </MuiLink>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
+      <Fragment>
+        <Head>
+            <title>Kamera App</title>
+        </Head>
+        <KameraLayout data={props.data} logout={logout} />
+      </Fragment>
+  )
 }
 
-export default function Index() {
-  return (
-    <Container maxWidth="sm">
-      <Box my={4}>
-        <Typography variant="h4" component="h1" gutterBottom>
-          Next.js example
-        </Typography>
-        <Link href="/about" color="secondary">
-          Go to the about page
-        </Link>
-        <ProTip />
-        <Copyright />
-      </Box>
-    </Container>
-  );
-}
+Index.getInitialProps = async ctx => {
+    const { token }  = nextCookie(ctx)
+    const apiUrl = getHost(ctx.req) + '/api/index'
+  
+    const redirectOnError = () =>
+      typeof window !== 'undefined'
+        ? Router.push('/login')
+        : ctx.res.writeHead(302, { Location: '/login' }).end()
+  
+    try {
+      const response = await fetch(apiUrl, {
+        credentials: 'include',
+        headers: {
+          Authorization: JSON.stringify({ token })
+        }
+      });
+  
+      //console.log(response.statusText);
+  
+      if (response.statusText === 'OK') {
+        const js = await response.json()
+        //console.log('js', js)
+        return js
+      } else {
+        // https://github.com/developit/unfetch#caveats
+        return await redirectOnError()
+      }
+    } catch (error) {
+      // Implementation or Network error
+      return redirectOnError()
+    }
+  }
+  
+
+export default withAuthSync(Index)
