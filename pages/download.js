@@ -44,6 +44,9 @@ import { green, red } from '@material-ui/core/colors';
 
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Head from 'next/head';
+
+import { CSVLink, CSVDownload } from 'react-csv';
+
 /// essentials-----------------
 function Copyright() {
     return (
@@ -133,8 +136,7 @@ function Listahan(props) {
   return (
       <Fragment>
           <Head>
-            <meta http-equiv="refresh" content="5" />
-            <title>2019 YEP - List</title>
+            <title>2019 YEP - Download</title>
           </Head>
       <CssBaseline />
       <AppBar position="relative" style={{backgroundColor: '#6200E', boxShadow: '0px 0px 0px 0px rgba(0,0,0,0.2), 0px 0px 0px 1px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12)'}}>
@@ -169,36 +171,18 @@ function Listahan(props) {
           <div className={classes.heroContent}>
           <Container maxWidth="sm">
             <Typography variant="h2" align="center">
-                Welcome to
+                Attendees of
             </Typography>
-            <Typography variant="h2" align="center">
+            <Typography variant="h2" align="center" gutterBottom>
                 Silhouttes: A Black & White Gala
             </Typography>
-            {employeeList.map(data => (
-            <List  key={data.id} className={classes.listahan}>
-                <ListItem alignItems="flex-start" >
-                  <ListItemAvatar>
-                    <Avatar>{data.id}</Avatar>
-                  </ListItemAvatar>
-                  <ListItemText
-                    primary={`${data.firstname} ${data.lastname}`}
-                    secondary={
-                      <React.Fragment>
-                        <Typography
-                          component="span"
-                          variant="body2"
-                          className={classes.inline}
-                          color="textPrimary"
-                        >
-                        </Typography>
-                          {` ${data.dt}`}
-                      </React.Fragment>
-                    }
-                  />
-                </ListItem>
-                <Divider variant="inset" component="li" />
-              </List>
-            ))}
+            <Grid container justify="center">
+                <Grid item>
+                <CSVLink data={employeeList} filename={"2019-YEP.csv"} style={{textDecoration: "none", color: "#333"}}>
+                    <Button variant="outlined" color="primary">Download here</Button>
+                </CSVLink>
+                </Grid>
+            </Grid>
           </Container>
           </div>
           {/* End hero unit */}
