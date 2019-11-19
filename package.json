@@ -21,6 +21,6 @@
   "scripts": {
     "dev": "next -p 9000",
     "build": "next build",
-    "start": "next start"
+    "start": "next start -p 9000"
   }
 }
