@@ -43,6 +43,7 @@ import Badge from '@material-ui/core/Badge';
 import { green, red } from '@material-ui/core/colors';
 
 import LinearProgress from '@material-ui/core/LinearProgress';
+import Head from 'next/head';
 
 /// essentials-----------------
 function Copyright() {
@@ -128,13 +129,14 @@ const useStyles = makeStyles(theme => ({
 function Listahan(props) {
   const classes = useStyles();
   const employeeList = props.show || [];
-  console.log(props.show);
+ // console.log(props.show);
 
   return (
       <Fragment>
-          <head>
+          <Head>
             <meta http-equiv="refresh" content="5" />
-          </head>
+            <title>2019 YEP - List</title>
+          </Head>
       <CssBaseline />
       <AppBar position="relative" style={{backgroundColor: '#6200E', boxShadow: '0px 0px 0px 0px rgba(0,0,0,0.2), 0px 0px 0px 1px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12)'}}>
           <Toolbar>
@@ -174,8 +176,8 @@ function Listahan(props) {
                 Silhouttes: A Black & White Gala
             </Typography>
             {employeeList.map(data => (
-            <List className={classes.listahan}>
-                <ListItem alignItems="flex-start">
+            <List  key={data.id} className={classes.listahan}>
+                <ListItem alignItems="flex-start" >
                   <ListItemAvatar>
                     <Avatar>{data.id}</Avatar>
                   </ListItemAvatar>

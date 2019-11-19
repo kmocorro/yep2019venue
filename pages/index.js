@@ -43,6 +43,7 @@ import Badge from '@material-ui/core/Badge';
 import { green, red } from '@material-ui/core/colors';
 
 import LinearProgress from '@material-ui/core/LinearProgress';
+import Head from 'next/head';
 
 /// essentials-----------------
 function Copyright() {
@@ -190,6 +191,9 @@ function Employee(props) {
 
   return (
       <Fragment>
+      <Head>
+        <title>2019 YEP</title>
+      </Head>
       <CssBaseline />
       <AppBar position="relative" style={{backgroundColor: '#6200E', boxShadow: '0px 0px 0px 0px rgba(0,0,0,0.2), 0px 0px 0px 1px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12)'}}>
           <Toolbar>
@@ -197,7 +201,7 @@ function Employee(props) {
               <Grid item>
                   <NextLink href="/"> 
                     <Typography component="h2" variant="h6"  color="inherit">
-                      2019 YEP Fab4
+                      2019 YEP
                     </Typography>
                   </NextLink>
               </Grid>
