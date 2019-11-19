@@ -56,4 +56,4 @@ Link.propTypes = {
   prefetch: PropTypes.bool,
 };
 
-export default React.forwardRef((props, ref) => <Link {...props} innerRef={ref} />);
+export default React.forwardRef((props, ref) => <Link {...props} innerRef={ref} style={{color: '#fff'}} />);
