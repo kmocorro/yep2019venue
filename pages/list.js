@@ -128,7 +128,7 @@ const useStyles = makeStyles(theme => ({
 function Listahan(props) {
   const classes = useStyles();
   const employeeList = props.show || [];
- // console.log(props.show);
+  //console.log(props.show);
 
   return (
       <Fragment>
@@ -141,11 +141,11 @@ function Listahan(props) {
           <Toolbar>
           <Grid container>
               <Grid item>
-                  <NextLink href="/"> 
+                  <a href="/" style={{textDecoration: "none", color:"#fff"}}> 
                     <Typography component="h2" variant="h6"  color="inherit">
                       2019 YEP
                     </Typography>
-                  </NextLink>
+                  </a>
               </Grid>
           </Grid>
           <Grid
@@ -232,8 +232,8 @@ Listahan.getInitialProps = async function() {
     const res = await fetch(`http://localhost:9001/listahan`);
     const show = await res.json();
     
+    console.log(show);
     return {show};
-  
 }
 
 export default Listahan;

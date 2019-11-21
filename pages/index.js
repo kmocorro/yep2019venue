@@ -156,7 +156,7 @@ function Employee(props) {
     setIsLoading(true);
 
     (async () => {
-        const res_submit = await fetch(`http://localhost:9001/api/enter`, {
+        const res_submit = await fetch(`http://192.168.1.2:9001/api/enter`, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -199,11 +199,11 @@ function Employee(props) {
           <Toolbar>
           <Grid container>
               <Grid item>
-                  <NextLink href="/"> 
+                  <a href="/" style={{textDecoration: "none", color:"#fff"}}> 
                     <Typography component="h2" variant="h6"  color="inherit">
                       2019 YEP
                     </Typography>
-                  </NextLink>
+                  </a>
               </Grid>
           </Grid>
           <Grid

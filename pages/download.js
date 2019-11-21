@@ -143,11 +143,11 @@ function Listahan(props) {
           <Toolbar>
           <Grid container>
               <Grid item>
-                  <NextLink href="/"> 
+                  <a href="/" style={{textDecoration: "none", color:"#fff"}}> 
                     <Typography component="h2" variant="h6"  color="inherit">
                       2019 YEP
                     </Typography>
-                  </NextLink>
+                  </a>
               </Grid>
           </Grid>
           <Grid
@@ -213,7 +213,7 @@ function Listahan(props) {
 }
 
 Listahan.getInitialProps = async function() {
-    const res = await fetch(`http://localhost:9001/listahan`);
+    const res = await fetch(`http://192.168.1.2:9001/listahan`);
     const show = await res.json();
     
     return {show};
