@@ -44,6 +44,7 @@ import { green, red } from '@material-ui/core/colors';
 
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Head from 'next/head';
+import moment from 'moment';
 
 /// essentials-----------------
 function Copyright() {
@@ -261,11 +262,18 @@ function Employee(props) {
                         <Typography align="center" variant="body2" noWrap gutterBottom>
                           Employee number
                         </Typography>
-                        <Typography align="center" variant="h4" gutterBottom>
-                          {employee_details.shift}
-                        </Typography>
+                          {
+                            employee_details.shift == 'X' || employee_details.shift == 'Z' ?
+                            <Typography align="center" variant="h4" gutterBottom>
+                              {`${employee_details.shift} - December 4`}
+                            </Typography>
+                            :
+                            <Typography align="center" variant="h4" gutterBottom>
+                            {`${employee_details.shift} - December 5`}
+                            </Typography>
+                          }
                         <Typography align="center" variant="body2" noWrap gutterBottom>
-                          Shift
+                          Shift - Schedule
                         </Typography>
                         {
                           employee_details.outgoingRoute !== '\r' ?
@@ -302,9 +310,29 @@ function Employee(props) {
                         Already Registered.
                       </Typography>
                       :
-                      <Button onClick={handleClick} type="submit" size="large" fullWidth color="primary" variant="contained">
-                        Enter Event
-                      </Button>
+                      moment(new Date()).startOf('day').isSame('2019-12-04') ?
+                        employee_details.shift == 'X' || employee_details.shift == 'Z' ?
+                        <Button onClick={handleClick} type="submit" size="large" fullWidth color="primary" variant="contained">
+                          Enter Event
+                        </Button>
+                        :
+                        <Typography align="center" variant="h4" gutterBottom>
+                          You are scheduled tomorrow.
+                        </Typography>
+                      :
+                      moment(new Date()).startOf('day').isSame('2019-12-05') ?
+                        employee_details.shift == 'Y' || employee_details.shift == 'E' || employee_details.shift == 'F' ?
+                        <Button onClick={handleClick} type="submit" size="large" fullWidth color="primary" variant="contained">
+                          Enter Event
+                        </Button>
+                        :
+                        <Typography align="center" variant="h4" gutterBottom>
+                          You are scheduled yesterday.
+                        </Typography>
+                      : 
+                      <Typography align="center" variant="h4" gutterBottom>
+                        No scheduled party today.
+                      </Typography>
                   }
                 </Grid>
               </Grid>
